@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 import { StatusBar } from '@awesome-cordova-plugins/status-bar';
-import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
+import { SQLiteService } from './services/sqlite.service';
+import { DetailService } from './services/detail.service';
 
 
 @Component({
@@ -12,15 +13,21 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-
-  constructor(private platform: Platform) {
+  private initPlugin: boolean;
+  constructor(
+    private platform: Platform,
+    private sqlite: SQLiteService,
+    private detail: DetailService
+  ) {
     this.platform.ready().then(async () => {
-      this.platform.backButton.subscribeWithPriority(
-        666666, () => {
-          App.exitApp();
-        });
-
-      this.setStatusBarOverlayWebView();
+      // this.setStatusBarOverlayWebView();
+      await customElements.whenDefined('jeep-sqlite');
+      this.detail.setExistingConnection(false);
+      this.detail.setExportJson(false);
+      this.sqlite.initializePlugin().then(async (ret) => {
+        this.initPlugin = ret;
+        console.log(">>>> in App this.initPlugin " + this.initPlugin)
+      });
     });
   }
 
@@ -31,5 +38,4 @@ export class AppComponent {
       StatusBar.overlaysWebView(false);
     }
   }
-
 }

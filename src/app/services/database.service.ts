@@ -7,7 +7,6 @@ interface SQLiteDBConnectionCallback<T> { (myArguments: SQLiteDBConnection): T }
 
 @Injectable()
 export class DatabaseService {
-
   constructor(private sqlite: SQLiteService) {
   }
 

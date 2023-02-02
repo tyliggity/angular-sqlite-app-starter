@@ -1,4 +1,3 @@
-import { DownloadFromHTTP } from './../test/downloadfromhttp/downloadfromhttp.page';
 import { Injectable } from '@angular/core';
 
 import { Capacitor } from '@capacitor/core';

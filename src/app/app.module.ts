@@ -11,9 +11,7 @@ import { DetailService } from './services/detail.service';
 import { InitializeAppService } from './services/initialize.app.service';
 
 import { MigrationService } from './services/migrations.service';
-import { ProductRepository } from './repositories/product.repository';
 import { DatabaseService } from './services/database.service';
-import { ProductDefaultQueryRepository } from './repositories/product.default.query.repository';
 
 
 export function initializeFactory(init: InitializeAppService) {
@@ -39,8 +37,6 @@ export function initializeFactory(init: InitializeAppService) {
     },
 
     MigrationService,
-    ProductRepository,
-    ProductDefaultQueryRepository,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

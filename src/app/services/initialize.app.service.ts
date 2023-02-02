@@ -21,7 +21,6 @@ export class InitializeAppService {
       } catch (error) {
         throw Error(`initializeAppError: ${error}`);
       }
-
     });
   }
 
