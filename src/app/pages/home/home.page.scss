@@ -15,6 +15,10 @@
     display: none;
 }
 
+.level-title {
+    font-size: large;
+}
+
 .card-sqlite {
     padding: 1rem;
 }
@@ -32,7 +36,7 @@ ion-textarea.query-editor {
     overflow: auto;
 }
 
-.results-card > div {
+.results-card>div {
     background-color: #e2e2e2;
     height: fit-content;
     min-height: 10vh;
@@ -42,7 +46,7 @@ ion-textarea.query-editor {
     text-align: left;
 }
 
-.error-card > div {
+.error-card>div {
     background-color: #373737;
     height: fit-content;
     min-height: 10vh;
@@ -50,4 +54,25 @@ ion-textarea.query-editor {
     margin: 1rem auto;
     padding: 1rem;
     text-align: left;
+}
+
+ion-popover {
+    --background: rgba(40, 173, 218, 0.6);
+    --backdrop-opacity: 0.6;
+    --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
+    --color: white;
+    --width: 10vw;
+}
+
+ion-popover ion-content {
+    --background: rgba(40, 173, 218, 0.6);
+}
+
+ion-popover ion-content ion-item:hover {
+    cursor: pointer;
+    --background: #e7e7e7;
+}
+
+ion-popover::part(backdrop) {
+    background-color: rgb(6, 14, 106);
 }

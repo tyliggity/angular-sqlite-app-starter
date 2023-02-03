@@ -7,7 +7,7 @@
   "homepage": "./",
   "scripts": {
     "ng": "ng",
-    "start": "npm run copysqlwasm && ng serve",
+    "start": "npm run copysqlwasm && ionic serve",
     "build": "npm run copysqlwasm && ng build",
     "build-production": "npm run copysqlwasm && ng build --configuration production",
     "test": "ng test",

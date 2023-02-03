@@ -1,7 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="showLevelSelectPopover($event)">Level</ion-button>
+      <ion-popover #popover [isOpen]="isShowPopover" (didDismiss)="isShowPopover = false">
+        <ng-template>
+          <ion-content class="ion-padding">
+            <ion-list>
+              <ion-item (click)="sendChangeLevel(1)">Level 1</ion-item>
+              <ion-item (click)="sendChangeLevel(2)">Level 2</ion-item>
+              <ion-item (click)="sendChangeLevel(3)">Level 3</ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
     </ion-buttons>
     <ion-title>
       SQL Game - Home
@@ -17,6 +28,7 @@
   </ion-header>
 
   <div id="container">
+    <ion-text class="level-title" color="primary">Level {{ currentGameLevel }}</ion-text>
     <ion-card class="card-sqlite">
       <ion-card-title>
         Query Tool
@@ -25,11 +37,11 @@
       <ion-button type="button" color="tertiary" (click)="querySubmit()">Run</ion-button>
     </ion-card>
     <ion-card class="card-sqlite results-card" *ngIf="queryResults && !queryError">
-      <ion-card-title>
+      <ion-card-title color="tertiary">
         Results
       </ion-card-title>
       <div>
-        <ion-text color="dark">{{ queryResults }}</ion-text>
+        <ion-textarea color="dark">{{ queryResults }}</ion-textarea>
       </div>
     </ion-card>
     <ion-card class="card-sqlite error-card" *ngIf="queryError">

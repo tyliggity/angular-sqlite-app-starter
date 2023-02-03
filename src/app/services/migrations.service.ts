@@ -1,28 +1,6 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { DatabaseService } from './database.service';
 import { SQLiteService } from './sqlite.service';
-
-// export const createSchemaProducts: string = `
-// CREATE TABLE IF NOT EXISTS products (
-//   id INTEGER PRIMARY KEY NOT NULL,
-//   name TEXT NOT NULL,
-//   description TEXT DEFAULT '',
-//   price NUMBER NOT NULL,
-//   imageUrl TEXT DEFAULT '',
-//   isAvailable BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)),
-//   isPopular BOOLEAN NOT NULL CHECK (isAvailable IN (0, 1)),
-//   category TEXT DEFAULT '',
-//   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//   );
-// `;
-
-// export const createSchemaTest: string = `
-// CREATE TABLE IF NOT EXISTS test (
-//   id INTEGER PRIMARY KEY NOT NULL,
-//   name TEXT NOT NULL
-// );
-// `;
 
 @Injectable()
 export class MigrationService {
@@ -31,8 +9,6 @@ export class MigrationService {
   }
 
   async migrate(): Promise<any> {
-    // await this.createTestTable();
-    // await this.createProductsTable();
     await this.createDatabaseGameLevel1();
   }
 
@@ -60,29 +36,50 @@ export class MigrationService {
     await this.sqliteService.closeConnection('level1');
   }
 
-  // async createProductsTable(): Promise<any> {
-  //   await this.databaseService.executeQuery(async (db) => {
-  //     await db.execute(createSchemaProducts);
-  //   });
-  // }
+  async createDatabaseGameLevel2() {
+    const db = await this.sqliteService.createConnection('level2', false, "no-encryption", 1);
+    await db.open();
 
-  // async createTestTable(): Promise<void> {
-  //   console.log(`going to create a connection`)
-  //   const db = await this.sqliteService.createConnection(environment.databaseName, false, "no-encryption", 1);
-  //   console.log(`db ${JSON.stringify(db)}`)
-  //   await db.open();
-  //   console.log(`after db.open`)
-  //   let query = `
-  //           CREATE TABLE IF NOT EXISTS test (
-  //             id INTEGER PRIMARY KEY NOT NULL,
-  //             name TEXT NOT NULL
-  //           );
-  //           `
-  //   console.log(`query ${query}`)
+    // create tables
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS services (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        price INTEGER NOT NULL
+      )
+    `);
 
-  //   const res: any = await db.execute(query);
-  //   console.log(`res: ${JSON.stringify(res)}`)
-  //   await this.sqliteService.closeConnection(environment.databaseName);
-  //   console.log(`after closeConnection`)
-  // }
+    // insert data
+    await db.execute(`INSERT OR IGNORE INTO services (id, name, price) VALUES 
+      (1, 'Oil Change', 100),
+      (2, 'Synthetic Blenc Oil Change', 150),
+      (3, 'Full Synthetic Oil Change', 250)
+    `);
+        
+    //close the connection
+    await this.sqliteService.closeConnection('level2');
+  }
+
+  async createDatabaseGameLevel3() {
+    const db = await this.sqliteService.createConnection('level3', false, "no-encryption", 1);
+    await db.open();
+
+    // create tables
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS lands (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL
+      )
+    `);
+
+    // insert data
+    await db.execute(`INSERT OR IGNORE INTO lands (id, name) VALUES 
+      (1, 'Munchkin Land'),
+      (2, 'Candy Land'),
+      (3, 'Looney Tune Land')
+    `);
+        
+    //close the connection
+    await this.sqliteService.closeConnection('level3');
+  }
 }

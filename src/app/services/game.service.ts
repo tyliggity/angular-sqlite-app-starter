@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DBSQLiteValues } from '@capacitor-community/sqlite';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GameLevel } from '../models/GameLevel';
 import { SQLiteService } from './sqlite.service';
 
@@ -8,7 +9,7 @@ import { SQLiteService } from './sqlite.service';
 })
 export class GameService {
   private gameLevels: Array<GameLevel> = [];
-  private currentGameLevelId = 1;
+  private currentGameLevel$: BehaviorSubject<Number>;
 
   constructor(private sqliteService: SQLiteService) {
     let gameLevel1 = {} as GameLevel;
@@ -24,11 +25,23 @@ export class GameService {
     gameLevel3.dbName = 'level3';
 
     this.gameLevels.push(gameLevel1, gameLevel2, gameLevel3);
+
+    this.currentGameLevel$ = new BehaviorSubject(1);
+  }
+  
+  getLevel(): Observable<Number> {
+    return this.currentGameLevel$.pipe();
+  }
+
+  setLevel(level: Number) {
+    if (level >= 1 && level <= 3 && level !== this.currentGameLevel$.value) {
+      this.currentGameLevel$.next(level);
+    }
   }
 
   async executeQuery(query: string): Promise<DBSQLiteValues> {
     //get db name for current level
-    let dbName = this.gameLevels.find(level => level.id === this.currentGameLevelId).dbName;
+    let dbName = this.gameLevels.find(level => level.id === this.currentGameLevel$.value).dbName;
     
     //create a connection and open
     const db = await this.sqliteService.createConnection(dbName, false, "no-encryption", 1);
