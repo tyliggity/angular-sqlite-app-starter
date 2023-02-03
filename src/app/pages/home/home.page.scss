@@ -1,0 +1,53 @@
+#container {
+    text-align: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 5%;
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.display {
+    display: none;
+}
+
+.card-sqlite {
+    padding: 1rem;
+}
+
+ion-textarea.query-editor {
+    width: 50%;
+    margin: 1rem auto;
+    text-align: left;
+    --background: #373737;
+    --color: #fff;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --placeholder-color: #ddd;
+    --placeholder-opacity: 0.8;
+    overflow: auto;
+}
+
+.results-card > div {
+    background-color: #e2e2e2;
+    height: fit-content;
+    min-height: 10vh;
+    width: 50%;
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: left;
+}
+
+.error-card > div {
+    background-color: #373737;
+    height: fit-content;
+    min-height: 10vh;
+    width: 50%;
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: left;
+}

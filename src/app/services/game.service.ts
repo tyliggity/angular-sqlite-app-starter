@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DBSQLiteValues } from '@capacitor-community/sqlite';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { GameLevel } from '../models/GameLevel';
 import { SQLiteService } from './sqlite.service';
 
@@ -37,7 +36,7 @@ export class GameService {
 
     //detect special query
     var queryResults: DBSQLiteValues
-    if (query.toLowerCase() === 'show tables') {
+    if (query.toLowerCase().match(/^show tables;?$/gi)) {
       queryResults = await db.getTableList();
     } else {
       //run query

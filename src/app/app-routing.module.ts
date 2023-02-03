@@ -3,14 +3,18 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'sqlscratch',
-    loadChildren: () => import('./pages/sqlscratch/sqlscratch.module')
-      .then(m => m.SqlscratchPageModule)
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module')
+      .then(m => m.HomePageModule)
   },
   {
     path: '',
-    redirectTo: 'sqlscratch',
+    redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
 ];
 

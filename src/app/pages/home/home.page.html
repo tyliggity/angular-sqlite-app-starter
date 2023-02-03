@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      SQL Game - Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">SQL Game - Home</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-card class="card-sqlite">
+      <ion-card-title>
+        Query Tool
+      </ion-card-title>
+      <ion-textarea #inputQuery class="query-editor" placeholder="Enter query here..." [autoGrow]="true" [autofocus]="true" rows="5"></ion-textarea>
+      <ion-button type="button" color="tertiary" (click)="querySubmit()">Run</ion-button>
+    </ion-card>
+    <ion-card class="card-sqlite results-card" *ngIf="queryResults && !queryError">
+      <ion-card-title>
+        Results
+      </ion-card-title>
+      <div>
+        <ion-text color="dark">{{ queryResults }}</ion-text>
+      </div>
+    </ion-card>
+    <ion-card class="card-sqlite error-card" *ngIf="queryError">
+      <ion-card-title color="danger">
+        Error
+      </ion-card-title>
+      <div>
+        <ion-text color="danger">{{ queryError }}</ion-text>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

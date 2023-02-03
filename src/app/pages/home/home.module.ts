@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SqlscratchPageRoutingModule } from './sqlscratch-routing.module';
+import { HomePageRoutingModule } from './home-routing.module';
 
-import { SqlscratchPage } from './sqlscratch.page';
+import { HomePage } from './home.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SqlscratchPageRoutingModule
+    HomePageRoutingModule
   ],
-  declarations: [SqlscratchPage]
+  declarations: [HomePage]
 })
-export class SqlscratchPageModule {}
+export class HomePageModule {}
